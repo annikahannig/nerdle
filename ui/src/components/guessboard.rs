@@ -1,15 +1,11 @@
-use std::cmp;
-
 use gloo::dialogs::alert;
 use yew::{
-    classes, function_component, html, use_callback, use_context,
-    use_effect_with, use_state, Callback, Html, Properties,
+    classes, function_component, html, use_callback, use_effect_with,
+    use_state, Callback, Html, Properties,
 };
 
-use crate::debug::log;
 use crate::state::game::{
-    use_game_state, Game, Guess, Hint, History as GameHistory,
-    State as GameState,
+    use_game_state, Game, Guess, History as GameHistory, State as GameState,
 };
 
 #[derive(Properties, Clone, PartialEq)]

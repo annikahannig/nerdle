@@ -1,5 +1,3 @@
-use std::boxed::Box;
-use std::error::Error;
 use std::rc::Rc;
 
 use anyhow::Result;
@@ -7,16 +5,11 @@ use gloo::storage::{LocalStorage, Storage};
 use serde::{Deserialize, Serialize};
 use yew::{
     function_component, hook, html, use_callback, use_context, use_effect_with,
-    use_reducer, use_state, Callback, Children, ContextProvider, Html,
-    Properties, Reducible, UseReducerHandle,
+    use_reducer, Callback, Children, ContextProvider, Html, Properties,
+    Reducible,
 };
 
-use crate::{
-    api::Wordle,
-    components::{KeyState, KeyboardState},
-    debug::log,
-    state::use_config,
-};
+use crate::{api::Wordle, state::use_config};
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub enum Hint {

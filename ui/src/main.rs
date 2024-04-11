@@ -1,7 +1,9 @@
-use yew::{functional::function_component, html, Callback, Html};
+use yew::{functional::function_component, html, Html};
 
-use nerdle_ui::components::Game;
-use nerdle_ui::state::{ConfigProvider, GameStateProvider, WordlistProvider};
+use nerdle_ui::{
+    components::Game,
+    state::{ConfigProvider, GameStateProvider, WordlistProvider},
+};
 
 #[function_component]
 fn App() -> Html {

@@ -1,11 +1,9 @@
-use gloo::net::http::Request;
-use wasm_bindgen_futures::spawn_local;
 use yew::{
-    function_component, hook, html, use_context, use_effect, use_effect_with,
-    use_state, Callback, Children, ContextProvider, Html, Properties,
+    function_component, hook, html, use_context, use_effect_with, use_state,
+    Children, ContextProvider, Html, Properties,
 };
 
-use crate::{api, debug::log, task::spawn};
+use crate::{api, task::spawn};
 
 #[derive(Clone, PartialEq, Default)]
 pub struct Wordlist {
