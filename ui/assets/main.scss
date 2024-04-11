@@ -1,0 +1,324 @@
+
+// Variables
+$color-correct: #356b35;
+$color-incorrect: #222;
+$color-misplaced: #d79a26;
+
+body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: #222;
+  margin: 0px;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;
+  align-items: center;
+
+  .container {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .keyboard-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #444;
+    background: #444;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    padding: 10px 4px;
+    min-width: 1.8rem;
+
+    &.correct {
+      background: $color-correct;
+    }
+    &.incorrect {
+      background: $color-incorrect;
+    }
+    &.misplaced {
+      background: $color-misplaced;
+    }
+  }
+
+  .key-enter {
+    font-size: 0.8rem;
+  }
+  .key-bksp {
+    font-size: 0.8rem;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+
+  margin: 20px 0;
+
+  .tabs {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin: 10px 0px;
+        button {
+            border: none;
+            cursor: pointer;
+            padding: 4px 15px;
+            background: #444; 
+            color: #ccc;
+            border-radius: 15px;
+            text-shadow: 0 -1px 1px #222;
+        }
+  }
+}
+
+.guess-board {
+  display: flex;
+  flex-direction: column;
+
+
+  position: relative;
+
+    &.stats {
+        .guesses {
+            filter: blur(35px);
+        }
+    }
+
+  &.running {
+    .stats {
+        button:disabled {
+            background: linear-gradient(180deg, #555, #333);
+            color: #888;
+            cursor: not-allowed;
+        }
+    }
+  }
+
+  .guesses {
+    display: flex;
+    flex-direction: column;
+
+
+    background: #333;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+
+  .stats {
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    transition: all 0.5s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 5px;
+
+    font-family: monospace;
+    color: #ccc;
+
+    opacity: 0;
+    visibility: hidden;
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      background: rgba(255,255,255, 0.03);
+    }
+
+    .rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 15px;
+      height: 100%;
+    }
+
+    .row {
+
+        flex: 0 1;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+
+        &.histogram {
+            flex: 1;
+        }
+    }
+
+    .stat {
+        display: flex;
+        flex: 1 0;
+        background: rgba(0, 0, 0, 0.35);
+        border-radius: 5px;
+
+        word-wrap: break-word;
+        flex-direction: column;
+        padding: 10px;
+
+        b {
+            border-bottom: 1px dashed #555;
+            padding-bottom: 10px;
+        }
+
+        b, span {
+            display: flex;
+            flex: 1;
+            width: 100%;
+        }
+        span {
+            padding-top: 5px;
+            font-size: 1.5rem;
+        }
+    }
+
+
+    .buckets {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 5px;
+
+        .bucket {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            span {
+                display: flex;
+                flex: 0 1;
+                background: rgba(0, 0, 0, 0.35);
+                border-radius: 10px;
+                min-width: 30px;
+                justify-content: center;
+            }
+            .bar {
+                flex: 1;
+                padding-right: 40px;
+                div {
+                    color: #222;
+                    padding: 0px 20px 0px 10px;
+                    display: block;
+                    border: none;
+                    background: rgba(255, 255, 255, 0.55);
+                    border-radius: 10px;
+                }
+            }
+        }
+    }
+
+    .share {
+        flex: 0 1;
+        justify-content: center;
+        button {
+            margin: 10px;
+            display: flex; 
+            justify-content: center;
+            flex: 0 1 60%;
+            border-radius: 8px;
+            color: #eee;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.0rem;
+            border: none;
+            box-shadow: 0 3px 5px #222;
+            text-shadow: 0 -1px 1px #222;
+            outline: none;
+            background: linear-gradient(180deg, #668911, #1c480b);  
+            padding: 8px;
+            cursor: pointer;
+
+            &:active {
+                box-shadow: 0 1px 1px #222;
+                transform: translateY(2px);
+            }
+        }
+    }
+
+    h1 {
+        margin: 0;
+        flex: 1;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.35);
+        border-radius: 5px;        
+        font-weight: bold;
+    }
+
+  }
+
+
+  .guess {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Arial, sans-serif;
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 10px;
+      margin: 10px;
+      display: flex;
+      background: #444;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 1.5em;
+      font-weight: bold;
+      text-align: center;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .history {
+    .guess {
+      .correct {
+        background: $color-correct;
+      }
+      .incorrect {
+        background: $color-incorrect;
+      }
+      .misplaced {
+        background: $color-misplaced;
+      }
+    }
+  }
+
+}
+
+
