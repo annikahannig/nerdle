@@ -205,7 +205,7 @@ pub fn GuessBoard() -> Html {
             <div class="guesses">
                 <div class="history">
                     { for guesses.iter().map(|guess| html! {
-                        <GuessView guess={guess.clone()} /> }) }
+                        <GuessView key={guess.to_string()} guess={guess.clone()} /> }) }
                 </div>
                 <div class="current">
                 if state != GameState::Loss {

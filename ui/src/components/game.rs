@@ -1,4 +1,4 @@
-use yew::{function_component, html, Callback, Html};
+use yew::{function_component, html, Callback, Html, classes, use_state};
 
 use crate::{
     components::{GuessBoard, KeyboardInput},
@@ -14,13 +14,18 @@ pub fn Game() -> Html {
     let wordlist = use_wordlist();
     let GameContext { game, dispatch } = use_game_context();
 
+    // TODO: Bit lazy and hacky.. should be done better
+    let gameclass = use_state(|| "".to_string());
+
     let on_input = {
         let game = game.clone();
+        let gameclass = gameclass.clone();
         Callback::from(move |key: String| {
             if game.state != GameState::Running {
                 return;
             }
 
+            gameclass.set("".to_string());
             let mut word = game.current.to_string();
             match key.as_str() {
                 "BKSP" => {
@@ -31,7 +36,7 @@ pub fn Game() -> Html {
                     if wordlist.contains(&word) {
                         dispatch.emit(GameAction::AddGuess);
                     } else {
-                        log!("DISPLAY NOT A WRD");
+                        gameclass.set("error-not-a-word".to_string());
                     }
                 }
                 _ => {
@@ -45,7 +50,7 @@ pub fn Game() -> Html {
     };
 
     html! {
-        <div class="game">
+        <div class={classes!("game", (*gameclass).clone())}>
             <div class="container">
                 <GuessBoard />
             </div>
