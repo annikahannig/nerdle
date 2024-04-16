@@ -2,7 +2,6 @@ use yew::{function_component, html, Callback, Html, classes, use_state};
 
 use crate::{
     components::{GuessBoard, KeyboardInput},
-    debug::log,
     state::{
         game::State as GameState, use_game_context, use_wordlist, GameAction,
         GameContext,

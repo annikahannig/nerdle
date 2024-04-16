@@ -176,17 +176,20 @@ impl Game {
         // Get last guess from history
         let last_guess = game.guesses.last();
 
-        // Are we out of tries?
         let next_state = {
-            if game.tries() >= max_tries {
-                State::Loss
-            } else if let Some(last_guess) = last_guess {
-                match last_guess.matches(&game.solution) {
-                    true => State::Win,
-                    false => State::Running,
+            match last_guess {
+                None => State::Running,
+                Some(last_guess) => {
+                    match last_guess.matches(&game.solution) {
+                        true => State::Win,
+                        false => {
+                            match game.tries() >= max_tries {
+                                true => State::Loss,
+                                false => State::Running,
+                            }
+                        }
+                    }
                 }
-            } else {
-                State::Running
             }
         };
         game.state = next_state;

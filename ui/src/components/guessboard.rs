@@ -1,4 +1,7 @@
-use gloo::dialogs::alert;
+use gloo::{
+    dialogs::alert,
+    timers::callback::Timeout,
+};
 use yew::{
     classes, function_component, html, use_callback, use_effect_with,
     use_state, Callback, Html, Properties,
@@ -180,13 +183,21 @@ pub fn GuessBoard() -> Html {
     {
         let show_stats = show_stats.clone();
         let state = state.clone();
-        use_effect_with(state, move |state| match state {
-            GameState::Running => {
-                show_stats.set(false);
-            }
-            _ => {
-                show_stats.set(true);
-            }
+        use_effect_with(state, move |state| {
+            let timer = match state {
+                GameState::Running => {
+                    show_stats.set(false);
+                    None
+                }
+                _ => {
+                // Set a timer:
+                let t = Timeout::new(2100, move || {
+                    show_stats.set(true);
+                });
+                Some(t)
+                }
+            };
+            || { timer.map(|t| t.forget()); }   
         });
     }
 
