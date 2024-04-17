@@ -170,6 +170,13 @@ body {
         }
     }
   }
+  &.win {
+    .guesses {
+        .current {
+            display: none;
+        }
+    }
+  }
 
   .guesses {
     display: flex;
