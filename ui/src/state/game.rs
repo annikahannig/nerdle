@@ -101,13 +101,14 @@ pub fn get_keys(prefix: &str) -> Vec<String> {
 
 pub fn get_games() -> Result<Vec<Game>> {
     let keys = get_keys("game:");
-    let games = keys
+    let mut games: Vec<Game> = keys
         .iter()
         .map(|key| {
-            let game = LocalStorage::get(key.clone()).unwrap();
+            let game: Game = LocalStorage::get(key.clone()).unwrap();
             game
         })
-        .collect();
+        .collect::<Vec<Game>>();
+    games.sort_by_key(|game| game.id);
     Ok(games)
 }
 
